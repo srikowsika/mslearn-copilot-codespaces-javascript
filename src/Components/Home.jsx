@@ -25,6 +25,20 @@ import image from "../images/woman-with-tablet.jpg";
 const imageAltText = "Adult female in office setting leaning against a glass wall while holding a platinum Microsoft Surface Pro 7 in tablet mode preparing to write with Microsoft Surface Pen";
 
 const Home = ({ name, title }) => {
+  const handleScroll = () => {
+    const aboutSection = document.getElementById("about");
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleScroll();
+    }
+  };
+
   return (
     <section id="home" className="min-height">
       <img className="background" src={image} alt="" />
@@ -32,8 +46,20 @@ const Home = ({ name, title }) => {
         <h1>{name}</h1>
         <h2>{title}</h2>
       </div>
-      <div style={{ position: "absolute", bottom: "3rem", left: "50%" }}>
-        <img src={arrowSvg} style={{ height: "3rem", width: "3rem" }} alt={imageAltText} />
+      <div
+        style={{ position: "absolute", bottom: "3rem", left: "50%", cursor: "pointer" }}
+        onClick={handleScroll}
+        onKeyDown={handleKeyDown}
+        role="button"
+        tabIndex={0}
+        aria-label="Scroll to next section"
+      >
+        <img
+          src={arrowSvg}
+          style={{ height: "3rem", width: "3rem" }}
+          alt={imageAltText}
+          className="scroll-arrow"
+        />
       </div>
     </section>
   );
